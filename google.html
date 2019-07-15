@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display&display=swap" rel="stylesheet">
+  <title></title>
+</head>
+
+<body style="background: black;">
+  <img style="position: fixed; width:100vw; height: auto; margin:0px; padding:0px; z-index: -1;" src="img/google.png">
+  <div style="position: fixed; bottom: 7vh; right: 3vw; color: white; font-size:40px; font-family: 'Major Mono Display', monospace;" id="countdown"></div>
+
+  <script>
+    /* Timer */
+    function countdown(elementId, seconds) {
+      var element, endTime, hours, mins, msLeft, time;
+
+      function updateTimer() {
+        msLeft = endTime - (+new Date);
+        if (msLeft < 0) {
+          console.log('done');
+        } else {
+          time = new Date(msLeft);
+          hours = time.getUTCHours();
+          mins = time.getUTCMinutes();
+          element.innerHTML = (hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2);
+          setTimeout(updateTimer, time.getUTCMilliseconds());
+          // if you want this to work when you unfocus the tab and refocus or after you sleep your computer and come back, you need to bind updateTimer to a $(window).focus event^^
+        }
+      }
+
+      element = document.getElementById(elementId);
+      endTime = (+new Date) + 1000 * seconds;
+      updateTimer();
+    }
+
+    countdown('countdown', 30); // second base
+
+    function myFunction(){
+      setTimeout(function(){
+        window.location.href = "index.html#loading"
+      }, 30000);
+    }
+
+    myFunction();
+  </script>
+
+</body>
+
+</html>
